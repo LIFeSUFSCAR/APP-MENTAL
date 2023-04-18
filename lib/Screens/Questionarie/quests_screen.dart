@@ -1,7 +1,9 @@
 import 'package:app_mental/Screens/ChatRoom/Widgets/calendar.dart';
 import 'package:app_mental/Screens/Questionarie/Widgets/app_body_widget.dart';
+import 'package:app_mental/Screens/Questionarie/chart_result_screen.dart';
 import 'package:app_mental/Services/scaleService.dart';
 import 'package:app_mental/Shared/Widgets/AppDrawer.dart';
+import 'package:app_mental/Screens/Questionarie/Widgets/bar_chart_widget.dart';
 import 'package:app_mental/escalas/question_screen.dart';
 import 'package:app_mental/helper/constants.dart';
 import 'package:app_mental/helper/helperfuncions.dart';
@@ -75,14 +77,14 @@ class _QuestsScreenState extends State<QuestsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
             centerTitle: true,
             iconTheme: IconThemeData(color: kTextColorGreen),
             backgroundColor: Colors.white,
             title: Text(
-              'Suas Atividades',
+              "Questionários",
               style: AppTextStyles.tituloatividades,
             ),
             leading: IconButton(
@@ -96,27 +98,36 @@ class _QuestsScreenState extends State<QuestsScreen> {
             bottom: new PreferredSize(
                 preferredSize: new Size(300.0, 50.0),
                 child: new Container(
-                    width: 300.0,
                     child: new TabBar(
-                      indicatorColor: AppColors.verdeclaro,
-                      labelStyle: AppTextStyles.titulotab,
-                      labelColor: Colors.black,
-                      tabs: [
-                        new Container(
-                          height: 50.0,
-                          child:
-                              FittedBox(child: new Tab(text: 'Nessa semana')),
-                        ),
-                        new Container(
-                          height: 50.0,
-                          child: FittedBox(child: new Tab(text: 'Respondidos')),
-                        ),
-                      ],
-                    )))),
+                  indicatorColor: AppColors.verdeclaro,
+                  labelStyle: AppTextStyles.titulotab,
+                  labelColor: Colors.black,
+                  tabs: [
+                    new Container(
+                      height: 50.0,
+                      child: FittedBox(
+                        child: new Tab(text: "A responder"),
+                      ),
+                    ),
+                    new Container(
+                      height: 50.0,
+                      child: FittedBox(
+                        child: new Tab(text: "Avaliação semanal"),
+                      ),
+                    ),
+                    new Container(
+                      height: 50.0,
+                      child: FittedBox(
+                        child: new Tab(text: "Avaliação geral"),
+                      ),
+                    ),
+                  ],
+                )))),
         body: TabBarView(
           children: [
             questsRoomList(unansweredQuests),
             questsRoomList(answeredQuests),
+            BarChartWidget(),
           ],
         ),
       ),
@@ -148,10 +159,10 @@ class QuestRoomTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var nextSunday = getNextSunday(availableAt);
+    //var nextSunday = getNextSunday(availableAt);
 
     // Caso a escala/questionário seja planejada para a semana atual, constroi-se um card
-    if (_now.isAfter(availableAt) && _now.isBefore(nextSunday)) {
+    if (_now.isAfter(availableAt) /* && _now.isBefore(nextSunday)*/) {
       return QuizCard(
           notificationStatus: unanswered,
           title: "$questName - $week",
@@ -159,7 +170,7 @@ class QuestRoomTile extends StatelessWidget {
               ? "Questões respondidas: $answeredUntil"
               : "Completado!",
           now: _now,
-          expirationDate: nextSunday,
+          //expirationDate: nextSunday,
           onTap: () async {
             if (unanswered) {
               List<dynamic> _questions = [];
@@ -178,6 +189,14 @@ class QuestRoomTile extends StatelessWidget {
                         'questions': _questions,
                         'questionnaireCode': questCode
                       }));
+            } else {
+              Navigator.of(context)
+                  .pushNamed(ChartResultScreen.routeName, arguments: {
+                'title': "$questName - $week",
+                'questName': "$questName",
+                'questCode': "$questCode",
+                /*TODO get dados*/
+              });
             }
           });
     } else {

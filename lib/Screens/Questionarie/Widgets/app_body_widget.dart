@@ -7,7 +7,7 @@ class QuizCard extends StatelessWidget {
   final VoidCallback onTap;
   final String completed;
   final DateTime now;
-  final DateTime expirationDate;
+  //final DateTime expirationDate;
   final bool notificationStatus;
   const QuizCard(
       {Key? key,
@@ -15,7 +15,7 @@ class QuizCard extends StatelessWidget {
       required this.onTap,
       required this.completed,
       required this.now,
-      required this.expirationDate,
+      //required this.expirationDate,
       required this.notificationStatus})
       : super(key: key);
 
@@ -35,7 +35,7 @@ class QuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var difference = expirationDate.difference(now);
+    /*var difference = expirationDate.difference(now);
     var daysToExpire = difference.inDays;
     var hoursToExpire = difference.inHours;
     var minutesToExpire = difference.inMinutes;
@@ -49,7 +49,7 @@ class QuizCard extends StatelessWidget {
       expirationText = 'Expira em $hoursToExpire hora(s)';
     } else {
       expirationText = 'Expira em $minutesToExpire minuto(s)';
-    }
+    }*/
 
     return GestureDetector(
       onTap: onTap,
@@ -90,21 +90,27 @@ class QuizCard extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Expanded(
+                      FittedBox(
+                        child: Text(
+                          completed,
+                          style: AppTextStyles.body11,
+                        ),
+                      )
+                      /*Expanded(
                           flex: 1,
                           child: FittedBox(
                             child: Text(
                               completed,
                               style: AppTextStyles.body11,
                             ),
-                          )),
-                      Expanded(
+                          )),*/
+                      /*Expanded(
                           flex: 1,
                           child: Text(
                             expirationText,
                             textAlign: TextAlign.right,
                             style: AppTextStyles.body11,
-                          )),
+                          )),*/
                     ],
                   )
                 ],
