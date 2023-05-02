@@ -1,4 +1,5 @@
 import 'package:app_mental/Services/userService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -19,6 +20,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController phoneController = new TextEditingController();
   TextEditingController occupationController = new TextEditingController();
   TextEditingController workController = new TextEditingController();
+  TextEditingController nicknameController = new TextEditingController();
   var genderDropDown = null;
   var civilDropDown = null;
   String userEmail = "";
@@ -58,6 +60,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             civilDropDown = userApp.maritalStatus;
           });
         }
+        if (userApp.nickname != null) {
+          nicknameController.text = userApp.nickname!;
+        }
       });
     });
   }
@@ -91,7 +96,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             workController.text,
             civilDropDown,
             occupationController.text,
-            phoneController.text)
+            phoneController.text,
+            nicknameController.text)
         .then((_) {
       HelperFunctions.saveUserNameInSharedPreference(nameController.text);
       showDialog<String>(
@@ -125,6 +131,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ],
         ),
       );
+    });
+  }
+
+  _generateNickname() async {
+    await UserService().getNewNickname().then((newNickname) {
+      setState(() {
+        nicknameController.text = newNickname;
+      });
     });
   }
 
@@ -182,6 +196,52 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               : null;
                         },
                       ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(104, 202, 138, .2),
+                        blurRadius: 20.0,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Apelido:",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        readOnly: true,
+                        controller: nicknameController,
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _generateNickname(),
+                        child: Text(
+                          "Gerar novo apelido",
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),

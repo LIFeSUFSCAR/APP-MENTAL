@@ -66,7 +66,8 @@ class UserService {
       String workplace,
       String maritalStatus,
       String occupation,
-      String phone) async {
+      String phone,
+      String nickname) async {
     final response = await Api().post(
         "saveUserApp",
         jsonEncode(<String, String>{
@@ -77,7 +78,8 @@ class UserService {
           'workplace': workplace,
           'maritalStatus': maritalStatus,
           'occupation': occupation,
-          'phone': phone
+          'phone': phone,
+          'nickname': nickname
         }));
     if (response.statusCode != 200) {
       final error =
@@ -122,5 +124,15 @@ class UserService {
           ApiError.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       throw HttpException(error.message.toString());
     }
+  }
+
+  Future<String> getNewNickname() async {
+    final response = await Api().get("getNewNickname");
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+    final error =
+        ApiError.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    throw HttpException(error.message.toString());
   }
 }
