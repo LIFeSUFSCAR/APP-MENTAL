@@ -188,6 +188,12 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           const SizedBox(height: 8),
           buildMenuItem(
+            text: 'Sobre aplicativo',
+            icon: Icons.info,
+            onClicked: () => selectedItem(context, 8),
+          ),
+          const SizedBox(height: 8),
+          buildMenuItem(
             text: 'Sair',
             icon: Icons.exit_to_app,
             onClicked: () {
@@ -356,6 +362,10 @@ class _AppDrawerState extends State<AppDrawer> {
       case 7:
         Navigator.of(context).popUntil(ModalRoute.withName('/logged-home'));
         Navigator.of(context).pushNamed("/memory_game_screen");
+        break;
+      case 8:
+        Navigator.of(context).popUntil(ModalRoute.withName('/logged-home'));
+        Navigator.of(context).pushNamed("/about");
         break;
     }
   }

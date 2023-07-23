@@ -25,6 +25,7 @@ import 'Screens/Questionarie/Charts/chart_substance_screen.dart';
 import 'Screens/ResetPassword/reset_password.dart';
 import 'Screens/SignIn/signin.dart';
 import 'Screens/Reading/recomended_readings.dart';
+import 'Screens/About/AboutPage.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -100,6 +101,7 @@ class _MyAppState extends State<MyApp> {
         "/chart-ccsm-screen": (ctx) => ChartCcsmScreen(),
         "/chart-substance-screen": (ctx) => ChartSubstanceScreen(),
         "/chart-sleep-screen": (ctx) => ChartSleepScreen(),
+        "/about": (ctx) => AboutPage()
       },
       home: (userIsLoggedIn ?? false) ? HomeScreen() : SignIn(),
     );
