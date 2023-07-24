@@ -203,10 +203,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  Flexible(
+                      child: Container(
                     child: Row(
                       children: [
-                        SizedBox(width: 10.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -214,7 +214,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                               name,
                               style: TextStyle(
                                 fontFamily: 'Raleway',
-                                fontSize: 17.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -231,7 +231,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         ),
                       ],
                     ),
-                  ),
+                  )),
                   IconButton(
                     icon: Icon(Icons.call),
                     color: Colors.black,
