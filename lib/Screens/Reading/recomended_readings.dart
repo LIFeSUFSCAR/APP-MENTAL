@@ -92,8 +92,8 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
   }
 
   verifyReadingDatabase() async {
-    await ReadingDatabase.instance.getReadings().then((localReadings) {
-      if (localReadings.isEmpty) {
+    await ReadingDatabase.instance.getReadingsCount().then((localReadings) {
+      if (localReadings > 0) {
         getReadingFromRemote();
       } else {
         ReadingDatabase.instance.getReadingVersion().then((localVersion) {

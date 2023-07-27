@@ -50,6 +50,13 @@ class ReadingDatabase {
     return readingList;
   }
 
+  Future<int> getReadingsCount() async {
+    Database db = await instance.database;
+    int? groupSize = Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM readings'));
+    return groupSize!;
+  }
+
   Future<List<Reading>> getListRelatedReading(
       List<dynamic> idReadingList) async {
     Database db = await instance.database;

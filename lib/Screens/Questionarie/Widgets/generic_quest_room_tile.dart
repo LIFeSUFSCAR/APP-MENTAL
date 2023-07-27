@@ -27,51 +27,57 @@ class _GenericQuestRoomTileState extends State<GenericQuestRoomTile> {
         if (widget.questCode == QuestionnaireCode.ccsm.name) {
           QuestionnaireService()
               .getScoreByWeekApp(widget.email, widget.questCode)
-              .then((scores) => scoreList.addAll(scores))
-              .whenComplete(
-                () => Navigator.of(context).pushNamed(
-                  "/chart-ccsm-screen",
-                  arguments: {
-                    'questName': widget.questName,
-                    'questCode': widget.questCode,
-                    'email': widget.email,
-                    'scoreList': scoreList,
-                  },
-                ),
-              );
+              .then((scores) {
+            scoreList = [];
+            scoreList.addAll(scores);
+          }).whenComplete(
+            () => Navigator.of(context).pushNamed(
+              "/chart-ccsm-screen",
+              arguments: {
+                'questName': widget.questName,
+                'questCode': widget.questCode,
+                'email': widget.email,
+                'scoreList': scoreList,
+              },
+            ),
+          );
         } else if (widget.questCode == QuestionnaireCode.assistn2.name) {
           QuestionnaireService()
               .getScoreByWeekApp(widget.email, widget.questCode)
-              .then((scores) => scoreList.addAll(scores))
-              .whenComplete(
-                () => Navigator.of(context).pushNamed(
-                  "/chart-substance-screen",
-                  arguments: {
-                    'questName': widget.questName,
-                    'questCode': widget.questCode,
-                    'email': widget.email,
-                    'scoreList': scoreList,
-                  },
-                ),
-              );
+              .then((scores) {
+            scoreList = [];
+            scoreList.addAll(scores);
+          }).whenComplete(
+            () => Navigator.of(context).pushNamed(
+              "/chart-substance-screen",
+              arguments: {
+                'questName': widget.questName,
+                'questCode': widget.questCode,
+                'email': widget.email,
+                'scoreList': scoreList,
+              },
+            ),
+          );
         } else if (widget.questCode ==
             QuestionnaireCode.sleepQuestionnaire.name) {
           Navigator.of(context).pushNamed("/chart-sleep-screen");
         } else {
           QuestionnaireService()
               .getScoreByWeekApp(widget.email, widget.questCode)
-              .then((scores) => scoreList.addAll(scores))
-              .whenComplete(
-                () => Navigator.of(context).pushNamed(
-                  "/chart-general-screen",
-                  arguments: {
-                    'questName': widget.questName,
-                    'questCode': widget.questCode,
-                    'email': widget.email,
-                    'scoreList': scoreList,
-                  },
-                ),
-              );
+              .then((scores) {
+            scoreList = [];
+            scoreList.addAll(scores);
+          }).whenComplete(
+            () => Navigator.of(context).pushNamed(
+              "/chart-general-screen",
+              arguments: {
+                'questName': widget.questName,
+                'questCode': widget.questCode,
+                'email': widget.email,
+                'scoreList': scoreList,
+              },
+            ),
+          );
         }
       },
     );
