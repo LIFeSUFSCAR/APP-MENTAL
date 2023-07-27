@@ -124,4 +124,16 @@ class QuestionnaireService {
         ApiError.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     throw HttpException(error.message.toString());
   }
+
+  Future<String> getAnswerOpenQuestion(
+      String questCode, int questionIndex, String email) async {
+    final response = await Api().get(
+        "getAnswerOpenQuestion?code=$questCode&index=$questionIndex&email=$email");
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+    final error =
+        ApiError.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    throw HttpException(error.message.toString());
+  }
 }
