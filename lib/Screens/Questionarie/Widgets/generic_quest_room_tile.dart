@@ -24,11 +24,11 @@ class _GenericQuestRoomTileState extends State<GenericQuestRoomTile> {
     return GenericQuizCard(
       title: widget.questName,
       onTap: () {
+        scoreList = [];
         if (widget.questCode == QuestionnaireCode.ccsm.name) {
           QuestionnaireService()
               .getScoreByWeekApp(widget.email, widget.questCode)
               .then((scores) {
-            scoreList = [];
             scoreList.addAll(scores);
           }).whenComplete(
             () => Navigator.of(context).pushNamed(
@@ -45,7 +45,6 @@ class _GenericQuestRoomTileState extends State<GenericQuestRoomTile> {
           QuestionnaireService()
               .getScoreByWeekApp(widget.email, widget.questCode)
               .then((scores) {
-            scoreList = [];
             scoreList.addAll(scores);
           }).whenComplete(
             () => Navigator.of(context).pushNamed(
@@ -65,7 +64,6 @@ class _GenericQuestRoomTileState extends State<GenericQuestRoomTile> {
           QuestionnaireService()
               .getScoreByWeekApp(widget.email, widget.questCode)
               .then((scores) {
-            scoreList = [];
             scoreList.addAll(scores);
           }).whenComplete(
             () => Navigator.of(context).pushNamed(
