@@ -44,7 +44,7 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
   List<bool> checkboxValueList = [false, false, false, false, false, false];
   final textController = TextEditingController();
   final telNumberController = TextEditingController();
-  var showRequiredError = false;
+  bool showRequiredError = false;
   TimeOfDay timeOfDay = TimeOfDay(hour: 0, minute: 0);
 
   changeCheckboxValue(newValue, index) {
@@ -149,12 +149,16 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
   sendText() {
     if (textController.text.isEmpty) {
       if (widget.required) {
-        this.showRequiredError = true;
+        setState(() {
+          showRequiredError = true;
+        });
         return;
       }
       textController.text = "Continuar";
     }
-    this.showRequiredError = false;
+    setState(() {
+      showRequiredError = false;
+    });
     QuestionnaireAnswer questionnaireAnswer = new QuestionnaireAnswer(
         answerId: widget.answers[0].answerId,
         email: widget.userEmail,
@@ -173,7 +177,9 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
   sendEmergencyContact() {
     if ((widget.required) &&
         (textController.text.isEmpty || telNumberController.text.isEmpty)) {
-      this.showRequiredError = true;
+      setState(() {
+        showRequiredError = true;
+      });
       return;
     }
     QuestionnaireAnswer questionnaireAnswer = new QuestionnaireAnswer(
@@ -189,6 +195,9 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
     widget.setQuestionIndex(widget.questionIndex + 1);
     textController.text = "";
     telNumberController.text = "";
+    setState(() {
+      showRequiredError = false;
+    });
   }
 
   sendTime() {
@@ -323,6 +332,12 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
             widget.questionIndex == 2 ||
             widget.questionIndex == 7 ||
             widget.questionIndex == 13)) {
+      QuestionnaireService()
+          .getAnswerOpenQuestion(
+              widget.questionnaireCode, widget.questionIndex, widget.userEmail)
+          .then((value) {
+        textController.text = value;
+      });
       return [
         Column(children: [
           Padding(
@@ -350,6 +365,16 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
       ];
     } else if (widget.questionnaireCode == "questSD1" &&
         widget.questionIndex == 8) {
+      if (!showRequiredError) {
+        QuestionnaireService()
+            .getAnswerOpenQuestion(widget.questionnaireCode,
+                widget.questionIndex, widget.userEmail)
+            .then((value) {
+          List<String> contactAndPhone = value.split("/");
+          textController.text = contactAndPhone[0];
+          telNumberController.text = contactAndPhone[1];
+        });
+      }
       return [
         Column(children: [
           Padding(
@@ -387,9 +412,12 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
                       EdgeInsets.all(12))),
             ),
           ),
-          (this.showRequiredError)
-              ? Text("O campo é obrigatório!")
-              : (Container())
+          showRequiredError
+              ? Text(
+                  "O campo é obrigatório!",
+                  style: TextStyle(color: Colors.red),
+                )
+              : Container()
         ]),
       ];
     } else {
