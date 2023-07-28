@@ -20,10 +20,12 @@ class Reading {
         id: json['id'],
         group: json['group'],
         name: json['name'],
-        text: json['text'],
+        text: (json.containsKey('text')) ? (json['text']) : "",
         version: json['version'],
         iconGroupImage: json['iconGroupImage'],
-        idRelatedReading: json['idRelatedReading'],
+        idRelatedReading: (json.containsKey('idRelatedReading'))
+            ? (json['idRelatedReading'])
+            : (new List.empty()),
       );
 
   factory Reading.fromJson(Map<String, dynamic> json) {

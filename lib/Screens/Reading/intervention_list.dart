@@ -29,7 +29,7 @@ class _InterventionListState extends State<InterventionList> {
 
   getReadingDatabase() async {
     await ReadingDatabase.instance
-        .getReadingsByGroup(widget.readingGroup)
+        .getReadingsByGroup2(widget.readingGroup)
         .then((readings) {
       setState(() {
         readingList = readings;

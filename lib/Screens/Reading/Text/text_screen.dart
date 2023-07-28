@@ -32,6 +32,8 @@ class TextScreen extends StatefulWidget {
 
 class _TextScreenState extends State<TextScreen> {
   late String userEmail;
+  String text = "";
+  late List<dynamic> relatedReading;
   String ratingTitle = 'Avalie este conteúdo!';
   double initialRating = 0.0;
   String commentHint = 'Nos conte o que achou!';
@@ -41,8 +43,21 @@ class _TextScreenState extends State<TextScreen> {
   @override
   void initState() {
     getUserEmail();
-    getRelatedReadings();
+    getInternalReading();
     super.initState();
+  }
+
+  getInternalReading() async {
+    await ReadingDatabase.instance.getReadingById(widget.id!).then((reading) {
+      if (reading != null) {
+        setState(() {
+          text = reading.text;
+          relatedReading = reading.idRelatedReading;
+        });
+
+        getRelatedReadings(reading.idRelatedReading);
+      }
+    });
   }
 
   getUserEmail() async {
@@ -90,10 +105,10 @@ class _TextScreenState extends State<TextScreen> {
     Navigator.pop(context);
   }
 
-  getRelatedReadings() async {
+  getRelatedReadings(List<dynamic> relatedReadings) async {
     if (widget.relatedReadings != null) {
       await ReadingDatabase.instance
-          .getListRelatedReading(widget.relatedReadings!)
+          .getListRelatedReading(relatedReadings)
           .then((readingList) {
         setState(() {
           relatedReadingList = readingList;
@@ -141,8 +156,8 @@ class _TextScreenState extends State<TextScreen> {
                 ],
               ),
             )
-          : TextBody(widget.text, relatedReadingList,
-              widget.verifyNotificationList, this.widget.carouselImages),
+          : TextBody(text, relatedReadingList, widget.verifyNotificationList,
+              this.widget.carouselImages),
     );
   }
 }
