@@ -14,11 +14,24 @@ class _BodyState extends State<Body> {
   int questionnaireNotificationQuantity = 0;
   int readingNotificationQuantity = 0;
   int chatNotificationQuantity = 0;
+  final errorSnackBar = SnackBar(
+      duration: Duration(seconds: 5),
+      content: Text("Erro ao tentar se conectar com o servidor!",
+          style: TextStyle(color: Colors.white)),
+      backgroundColor: Colors.red);
+  bool snackBarActive = false;
 
   @override
   void initState() {
     super.initState();
     getQuestionnaireNotification();
+  }
+
+  showErrorSnackBar() {
+    if (!snackBarActive) {
+      ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+      snackBarActive = true;
+    }
   }
 
   getQuestionnaireNotification() async {
@@ -29,6 +42,8 @@ class _BodyState extends State<Body> {
         setState(() {
           questionnaireNotificationQuantity = notificationQuantity;
         });
+      }).catchError((_) {
+        showErrorSnackBar();
       });
       ReadingService()
           .getReadingIsReadCount(email)
@@ -36,6 +51,8 @@ class _BodyState extends State<Body> {
         setState(() {
           readingNotificationQuantity = notificationQuantity;
         });
+      }).catchError((_) {
+        showErrorSnackBar();
       });
       ChatService()
           .getUnreadMessagesQuantity(email)
@@ -43,6 +60,8 @@ class _BodyState extends State<Body> {
         setState(() {
           chatNotificationQuantity = notificationQuantity;
         });
+      }).catchError((_) {
+        showErrorSnackBar();
       });
     });
   }

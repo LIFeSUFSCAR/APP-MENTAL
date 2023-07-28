@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:app_mental/Screens/Reading/group_reading_cards.dart';
 import 'package:app_mental/Shared/Widgets/AppDrawer.dart';
 
+import '../../Services/userService.dart';
 import '../../classes/reading_carousel_database.dart';
 import '../../classes/reading_database.dart';
 import '../../constants.dart';
@@ -22,12 +23,26 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
   List<ReadingRelUserDTO> notificationList = [];
   List<int> groupSizeList = [];
   bool isLoading = true;
+  bool isOffline = false;
+  final errorSnackBar = SnackBar(
+      duration: Duration(seconds: 5),
+      content: Text("Erro ao tentar se conectar com o servidor!",
+          style: TextStyle(color: Colors.white)),
+      backgroundColor: Colors.red);
+  bool snackBarActive = false;
 
   @override
   void initState() {
     verifyReadingDatabase();
     getReadingNotificationList();
     super.initState();
+  }
+
+  showErrorSnackBar() {
+    if (!snackBarActive) {
+      ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+      snackBarActive = true;
+    }
   }
 
   getReadingNotificationList() async {
@@ -38,6 +53,8 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
         setState(() {
           notificationList = notificationRemoteList;
         });
+      }).catchError((_) {
+        showErrorSnackBar();
       });
     });
   }
@@ -81,6 +98,8 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
         ReadingDatabase.instance.add(remoteReading);
       });
       getReadingGroupList();
+    }).catchError((_) {
+      showErrorSnackBar();
     });
     await ReadingService()
         .getReadingsImageCarousel()
@@ -88,12 +107,14 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
       remoteReadingsImage.forEach((remoteReading) {
         ReadingCarouselDatabase.instance.add(remoteReading);
       });
+    }).catchError((_) {
+      showErrorSnackBar();
     });
   }
 
   verifyReadingDatabase() async {
     await ReadingDatabase.instance.getReadingsCount().then((localReadings) {
-      if (localReadings > 0) {
+      if (localReadings == 0) {
         getReadingFromRemote();
       } else {
         ReadingDatabase.instance.getReadingVersion().then((localVersion) {
@@ -103,6 +124,12 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
             } else {
               getReadingGroupList();
             }
+          }).catchError((_) {
+            setState(() {
+              isOffline = true;
+            });
+            getReadingGroupList();
+            showErrorSnackBar();
           });
         });
       }
@@ -165,6 +192,21 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
     Navigator.of(context).pushNamed("/logged-home");
   }
 
+  forceUpdateReadings() {
+    snackBarActive = false;
+    UserService().verifyUserConection().then((_) {
+      setState(() {
+        isOffline = false;
+        isLoading = true;
+      });
+      ReadingCarouselDatabase.instance.dropAllRows();
+      ReadingDatabase.instance.dropAllRows().then((_) {
+        getReadingFromRemote();
+      });
+      showDialogOnSuccess(context);
+    }).catchError((_) => showErrorSnackBar());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,6 +234,11 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
               )
             : Column(
                 children: [
+                  isOffline
+                      ? TextButton(
+                          onPressed: forceUpdateReadings,
+                          child: Text("Atualizar Materiais Educativos"))
+                      : Container(),
                   GroupReadingCardsList(
                     readingGroupList: readingGroupList,
                     notificationList: notificationList,

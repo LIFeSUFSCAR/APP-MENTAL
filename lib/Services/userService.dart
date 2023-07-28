@@ -124,4 +124,13 @@ class UserService {
       throw HttpException(error.message.toString());
     }
   }
+
+  Future<void> verifyUserConection() async {
+    final response = await Api().get("verifyUserConection");
+    if (response.statusCode != 200) {
+      final error =
+          ApiError.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      throw HttpException(error.message.toString());
+    }
+  }
 }
