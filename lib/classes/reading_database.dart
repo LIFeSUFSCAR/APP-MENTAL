@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app_mental/helper/helperfuncions.dart';
+import 'package:http/http.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -90,6 +91,26 @@ class ReadingDatabase {
     List<Map> reading = await db
         .rawQuery('SELECT DISTINCT `group`, iconGroupImage  FROM readings');
     return reading;
+  }
+
+  Future<List<Reading>> getReadingsByGroup2(String group) async {
+    Database db = await instance.database;
+    List<Map<String, dynamic>> readings = await db.rawQuery(
+        'SELECT id, iconGroupImage, name, `group`, version FROM readings WHERE `group` = "$group"');
+    List<Reading> readingList = readings.isNotEmpty
+        ? readings.map((reading) => Reading.fromMap(reading)).toList()
+        : [];
+    return readingList!;
+  }
+
+  Future<Reading?> getReadingById(int id) async {
+    Database db = await instance.database;
+    var reading = await db.query('readings', where: 'id = "$id"');
+    if (reading.length > 0) {
+      Reading readingObj = Reading.fromMap(reading[0]);
+      return readingObj;
+    }
+    return null;
   }
 
   Future<int> getReadingGroupSize(String group) async {
