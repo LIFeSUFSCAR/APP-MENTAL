@@ -192,19 +192,34 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
     Navigator.of(context).pushNamed("/logged-home");
   }
 
-  forceUpdateReadings() {
+  forceUpdateReadings() async {
     snackBarActive = false;
-    UserService().verifyUserConection().then((_) {
+    await ReadingService().getReadings().then((remoteReadings) {
       setState(() {
         isOffline = false;
         isLoading = true;
       });
-      ReadingCarouselDatabase.instance.dropAllRows();
       ReadingDatabase.instance.dropAllRows().then((_) {
-        getReadingFromRemote();
+        remoteReadings.forEach((remoteReading) {
+          ReadingDatabase.instance.add(remoteReading);
+        });
+      });
+      getReadingGroupList();
+    }).catchError((_) {
+      showErrorSnackBar();
+    });
+    await ReadingService()
+        .getReadingsImageCarousel()
+        .then((remoteReadingsImage) {
+      ReadingCarouselDatabase.instance.dropAllRows().then((_) {
+        remoteReadingsImage.forEach((remoteReading) {
+          ReadingCarouselDatabase.instance.add(remoteReading);
+        });
       });
       showDialogOnSuccess(context);
-    }).catchError((_) => showErrorSnackBar());
+    }).catchError((_) {
+      showErrorSnackBar();
+    });
   }
 
   @override
