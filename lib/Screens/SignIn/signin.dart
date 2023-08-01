@@ -65,7 +65,7 @@ class _SignInState extends State<SignIn> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     final fcmToken = "";
     UserService()
-        .signIn(emailTextEdittingController.text,
+        .signIn(emailTextEdittingController.text.trim(),
             passwordTextEdittingController.text, fcmToken!)
         .then((user) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -149,7 +149,7 @@ class _SignInState extends State<SignIn> {
                                                   color: Colors.grey)),
                                           validator: (val) {
                                             return RegExp(
-                                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                        r"[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                                     .hasMatch(val!)
                                                 ? null
                                                 : "Por favor verifique seu email";
