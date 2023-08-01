@@ -1,11 +1,9 @@
 import 'package:app_mental/Screens/ResetPassword/reset_password.dart';
-import 'package:app_mental/Screens/SignUp/signup.dart';
 import 'package:app_mental/Services/userService.dart';
 import 'package:app_mental/animation/FadeAnimation.dart';
 import 'package:app_mental/constants.dart';
 import 'package:app_mental/helper/helperfuncions.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class SignIn extends StatefulWidget {
   @override
