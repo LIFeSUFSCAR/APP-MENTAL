@@ -205,18 +205,16 @@ class _RecomendedReadingsState extends State<RecomendedReadings> {
         });
       });
       getReadingGroupList();
-    }).catchError((_) {
-      showErrorSnackBar();
-    });
-    await ReadingService()
-        .getReadingsImageCarousel()
-        .then((remoteReadingsImage) {
-      ReadingCarouselDatabase.instance.dropAllRows().then((_) {
-        remoteReadingsImage.forEach((remoteReading) {
-          ReadingCarouselDatabase.instance.add(remoteReading);
+      ReadingService().getReadingsImageCarousel().then((remoteReadingsImage) {
+        ReadingCarouselDatabase.instance.dropAllRows().then((_) {
+          remoteReadingsImage.forEach((remoteReading) {
+            ReadingCarouselDatabase.instance.add(remoteReading);
+          });
         });
+        showDialogOnSuccess(context);
+      }).catchError((_) {
+        showErrorSnackBar();
       });
-      showDialogOnSuccess(context);
     }).catchError((_) {
       showErrorSnackBar();
     });
