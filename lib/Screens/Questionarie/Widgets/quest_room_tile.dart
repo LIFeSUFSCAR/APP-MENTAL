@@ -1,3 +1,4 @@
+import 'package:app_mental/Screens/ChatRoom/Widgets/calendar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Services/questionnaireService.dart';
@@ -30,8 +31,10 @@ class QuestRoomTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var nextSunday = getNextSunday(availableAt);
     // Caso a escala/questionário seja planejada para a semana atual, constroi-se um card
     if (_now.isAfter(availableAt) &&
+        _now.isBefore(nextSunday) &&
         unanswered == true &&
         questCode != "sleepQuestionnaire") {
       return QuizCard(
