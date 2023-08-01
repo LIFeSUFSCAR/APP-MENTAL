@@ -54,7 +54,9 @@ class _InterventionCardState extends State<InterventionCard> {
       }
     });
     HelperFunctions.getUserEmailInSharedPreference().then((email) {
-      ReadingService().readingIsRead(email, readingName, readingGroup);
+      ReadingService()
+          .readingIsRead(email, readingName, readingGroup)
+          .catchError((_) {});
     });
     if (listToRemoveNotification.isNotEmpty) {
       widget.callback(listToRemoveNotification[0]);
