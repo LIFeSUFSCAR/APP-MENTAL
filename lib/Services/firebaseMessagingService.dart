@@ -13,8 +13,6 @@ class FirebaseMessagingService {
   @pragma('vm:entry-point')
   Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
-    // If you're going to use other Firebase services in the background, such as Firestore,
-    // make sure you call `initializeApp` before using other Firebase services.
     await Firebase.initializeApp();
 
     print("Handling a background message: ${message.messageId}");
@@ -31,17 +29,7 @@ class FirebaseMessagingService {
         .setForegroundNotificationPresentationOptions(
             badge: true, sound: true, alert: true);
 
-    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    // (message) =>
-    //   print("Handling a background message:");
-    // });
-    getDeviceFirebaseToken();
     _onMessage();
-  }
-
-  void getDeviceFirebaseToken() async {
-    final token = await FirebaseMessaging.instance.getToken();
-    print('TOKEN: $token');
   }
 
   void _onMessage() {

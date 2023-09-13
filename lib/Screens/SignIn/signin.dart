@@ -51,10 +51,6 @@ class _SignInState extends State<SignIn> {
   }
 
   signIn() async {
-    // print("teste");
-    // Provider.of<NotificationService>(context, listen: false).showNotification(
-    //     CustomNotification(
-    //         id: 1, title: 'Teste', body: 'Acesso teste', payload: '/home'));
     if (!formKey.currentState!.validate()) {
       return;
     }

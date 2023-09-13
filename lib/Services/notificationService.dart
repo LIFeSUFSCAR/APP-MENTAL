@@ -43,12 +43,4 @@ class NotificationService {
         NotificationDetails(android: androidNotificationDetails),
         payload: notification.payload);
   }
-
-  // checkForNotification() async {
-  //   final details =
-  //       await localNotificationsPlugin.getNotificationAppLaunchDetails();
-  //   if(details != null && details.didNotificationLaunchApp){
-
-  //   }
-  // }
 }
