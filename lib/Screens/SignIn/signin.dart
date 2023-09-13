@@ -3,6 +3,7 @@ import 'package:app_mental/Services/userService.dart';
 import 'package:app_mental/animation/FadeAnimation.dart';
 import 'package:app_mental/constants.dart';
 import 'package:app_mental/helper/helperfuncions.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -50,6 +51,10 @@ class _SignInState extends State<SignIn> {
   }
 
   signIn() async {
+    // print("teste");
+    // Provider.of<NotificationService>(context, listen: false).showNotification(
+    //     CustomNotification(
+    //         id: 1, title: 'Teste', body: 'Acesso teste', payload: '/home'));
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -61,7 +66,8 @@ class _SignInState extends State<SignIn> {
       ],
     ));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    final fcmToken = "";
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(fcmToken);
     UserService()
         .signIn(emailTextEdittingController.text.trim(),
             passwordTextEdittingController.text, fcmToken!)

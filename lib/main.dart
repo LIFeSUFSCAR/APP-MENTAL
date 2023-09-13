@@ -9,6 +9,9 @@ import 'package:app_mental/Screens/Questionarie/Charts/chart_general_screen.dart
 import 'package:app_mental/Screens/Questionarie/quests_screen.dart';
 import 'package:app_mental/Screens/SleepDiary/sleep_diary.dart';
 import 'package:app_mental/Screens/Tutorial/tutorial_screen.dart';
+import 'package:app_mental/Services/firebaseMessagingService.dart';
+import 'package:app_mental/Services/notificationService.dart';
+import 'package:app_mental/classes/CustomNotification.dart';
 import 'package:app_mental/escalas/question_screen.dart';
 import 'package:app_mental/helper/helperfuncions.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -17,6 +20,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
 import 'Screens/Home/home_screen.dart';
 import 'Screens/Questionarie/Charts/chart_ccsm_screen.dart';
@@ -27,16 +32,16 @@ import 'Screens/SignIn/signin.dart';
 import 'Screens/Reading/recomended_readings.dart';
 import 'Screens/About/AboutPage.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("Handling a background message: ${message.messageId}");
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    MyApp(),
+    MultiProvider(providers: [
+      Provider<NotificationService>(create: (context) => NotificationService()),
+      Provider<FirebaseMessagingService>(
+          create: (context) =>
+              FirebaseMessagingService(context.read<NotificationService>()))
+    ], child: MyApp()),
   );
   await dotenv.load(fileName: "lib/.env");
 }
@@ -53,6 +58,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     getLoggedInState();
     super.initState();
+    initilizeFirebaseMessaging();
   }
 
   getLoggedInState() async {
@@ -61,6 +67,11 @@ class _MyAppState extends State<MyApp> {
         userIsLoggedIn = value;
       });
     });
+  }
+
+  initilizeFirebaseMessaging() async {
+    await Provider.of<FirebaseMessagingService>(context, listen: false)
+        .initialize();
   }
 
   @override
