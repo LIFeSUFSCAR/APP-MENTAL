@@ -20,28 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     getUserEmail();
     super.initState();
-    onNotificationOpenedApp();
-    onMessage();
-  }
-
-  Future<void> onNotificationOpenedApp() async {
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-    if (initialMessage != null) {
-      _handleMessage(initialMessage);
-    }
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-  }
-
-  Future<void> onMessage() async {
-    FirebaseMessaging.onMessage.listen((message) {
-      if (message.notification != null) {
-        final snackBar = SnackBar(
-          content: Text(message.notification?.title ?? '', maxLines: 2),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-    });
   }
 
   void _handleMessage(RemoteMessage message) {
