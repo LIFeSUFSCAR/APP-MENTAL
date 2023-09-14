@@ -33,9 +33,7 @@ class FirebaseMessagingService {
   }
 
   void _onMessage() {
-    print("onmessage");
     FirebaseMessaging.onMessage.listen((message) {
-      print("chegou");
       RemoteNotification? remoteNotification = message.notification;
       AndroidNotification? androidNotification = message.notification?.android;
 
