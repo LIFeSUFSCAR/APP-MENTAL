@@ -88,11 +88,12 @@ class _DiarioSonoState extends State<DiarioSono> {
                   color: Colors.white,
                   iconTheme: IconThemeData(
                     color: Colors.cyan,
+
                   ),
-                  textTheme: TextTheme(
-                    button: TextStyle(
+                  titleTextStyle: TextStyle( // TODO: probably not the correct fix. This was meant to be applied only on buttons
+                    
                       color: Colors.cyan,
-                    ),
+                    
                   ),
                 ),
                 iconTheme: const IconThemeData(

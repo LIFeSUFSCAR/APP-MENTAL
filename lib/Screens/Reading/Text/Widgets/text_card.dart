@@ -14,7 +14,10 @@ class TextCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Html(
       data: text,
-      onLinkTap: (url, context, attributes, element) => launch(url!),
+      onLinkTap: (url, context, attributes) => launchUrl(Uri(
+        scheme: 'https',
+        host: url,
+      )),
     );
   }
 }

@@ -113,12 +113,7 @@ class _ChatPageState extends State<ChatPage> {
                   )
                 ]
               : null),
-      body: StreamBuilder<types.Room>(
-        builder: (context, snapshot) {
-          return StreamBuilder<List<types.Message>>(
-            initialData: const [],
-            builder: (context, snapshot) {
-              return SafeArea(
+        body: SafeArea(
                 bottom: false,
                 child: Chat(
                   onBackgroundTap: _removeDeleteIcon,
@@ -130,11 +125,7 @@ class _ChatPageState extends State<ChatPage> {
                     id: widget.channel.idUser.toString(),
                   ),
                 ),
-              );
-            },
-          );
-        },
-      ),
+              ),
     );
   }
 }
