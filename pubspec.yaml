@@ -62,7 +62,7 @@ dependencies:
   url_launcher: ^6.1.14
   pdf: ^3.10.4
   audioplayers: ^5.2.0
-  fl_chart: ^0.63.0
+  fl_chart: ^0.64.0
   rating_dialog: ^2.0.4
   flutter_dotenv: ^5.1.0
   intl: ^0.18.0
@@ -79,6 +79,13 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/app-mental-icon-bg.png"
+  adaptive_icon_background: "#b2ffa9"
+  adaptive_icon_foreground: "assets/icons/app-mental-icon-bg.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -91,9 +98,12 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/text/
+    - lib/.env
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
