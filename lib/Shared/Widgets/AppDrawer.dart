@@ -5,6 +5,7 @@ import 'package:app_mental/constants.dart';
 import 'package:app_mental/helper/helperfuncions.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -322,10 +323,10 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   Future<String> getVersion() async {
-
-    String version = "1"; // TODO: Re-add the PackageInfo package to get the version
-    String buildNumber = "1";
-    return Future.value(version + "-" + buildNumber);
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    return Future.value("$version-$buildNumber");
   }
 
   void selectedItem(BuildContext context, int index) {
