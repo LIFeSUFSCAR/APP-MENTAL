@@ -84,7 +84,7 @@ class _DiarioSonoState extends State<DiarioSono> {
                     color: Colors.cyan,
 
                   ),
-                  titleTextStyle: TextStyle( // TODO: probably not the correct fix. This was meant to be applied only on buttons
+                  titleTextStyle: TextStyle( 
                     
                       color: Colors.cyan,
                     
