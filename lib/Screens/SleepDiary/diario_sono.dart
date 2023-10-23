@@ -77,22 +77,17 @@ class _DiarioSonoState extends State<DiarioSono> {
               },
               task: getSampleTask(),
               themeData: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: Colors.cyan,
-                ).copyWith(
-                  onPrimary: Colors.white,
-                ),
                 primaryColor: Colors.cyan,
-                backgroundColor: Colors.white,
                 appBarTheme: const AppBarTheme(
                   color: Colors.white,
                   iconTheme: IconThemeData(
                     color: Colors.cyan,
+
                   ),
-                  textTheme: TextTheme(
-                    button: TextStyle(
+                  titleTextStyle: TextStyle( 
+                    
                       color: Colors.cyan,
-                    ),
+                    
                   ),
                 ),
                 iconTheme: const IconThemeData(
@@ -106,11 +101,11 @@ class _DiarioSonoState extends State<DiarioSono> {
                     side: MaterialStateProperty.resolveWith(
                       (Set<MaterialState> state) {
                         if (state.contains(MaterialState.disabled)) {
-                          return BorderSide(
+                          return const BorderSide(
                             color: Colors.grey,
                           );
                         }
-                        return BorderSide(
+                        return const BorderSide(
                           color: Colors.cyan,
                         );
                       },
@@ -142,7 +137,11 @@ class _DiarioSonoState extends State<DiarioSono> {
                           ),
                     ),
                   ),
-                ),
+                ), colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch: Colors.cyan,
+                ).copyWith(
+                  onPrimary: Colors.white,
+                ).copyWith(background: Colors.white),
               ),
             ),
           ),

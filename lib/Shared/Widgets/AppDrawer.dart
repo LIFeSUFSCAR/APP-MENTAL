@@ -326,7 +326,7 @@ class _AppDrawerState extends State<AppDrawer> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     String buildNumber = packageInfo.buildNumber;
-    return Future.value(version + "-" + buildNumber);
+    return Future.value("$version-$buildNumber");
   }
 
   void selectedItem(BuildContext context, int index) {

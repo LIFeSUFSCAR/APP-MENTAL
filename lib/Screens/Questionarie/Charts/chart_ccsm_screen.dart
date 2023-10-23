@@ -171,13 +171,13 @@ class _ChartCcsmScreenState extends State<ChartCcsmScreen> {
                             data: legend,
                             style: {
                               "tr": Style(
-                                  padding: const EdgeInsets.all(2),
+                                  padding: HtmlPaddings.all(2),
                                   border: Border.all(color: Colors.black)),
                               "td": Style(
-                                padding: const EdgeInsets.all(2),
+                                padding: HtmlPaddings.all(2),
                               ),
                             },
-                            customRenders: {tableMatcher(): tableRender()},
+                            extensions:[TableHtmlExtension()],
                           ),
                         ],
                       ),
