@@ -82,11 +82,9 @@ class _TextBodyState extends State<TextBody> {
         child: Align(
           alignment: Alignment.center,
           child: Padding(
-
             padding: const EdgeInsets.only(
                 top: 18.0, bottom: 28.0, right: 16, left: 16),
             child: Column(
-
               children: [
                 widget.carouselImages.isNotEmpty
                     ? Column(
@@ -126,47 +124,48 @@ class _TextBodyState extends State<TextBody> {
                 ),
                 SizedBox(
                   height: 192,
-
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: widget.relatedReadingList.length,
                     itemBuilder: (context, index) {
                       Reading reading = widget.relatedReadingList[index];
-                      return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 110,
-                                  height: 100,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: (reading.iconGroupImage != null
-                                        ? Image.memory(base64Decode(
-                                            reading.iconGroupImage!))
-                                        : null),
-                                  ),
+                      return GestureDetector(
+                          onTap: () => goToRelatedReading(reading),
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: 110,
+                                      height: 100,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: (reading.iconGroupImage != null
+                                            ? Image.memory(base64Decode(
+                                                reading.iconGroupImage!))
+                                            : null),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    SizedBox(
+                                      width: 110,
+                                      height: 40,
+                                      child: Text(
+                                        reading.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: const TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: 20),
-                                SizedBox(
-                                  width: 110,
-                                  height: 40,
-                                  child: Text(
-                                    reading.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )) /**/;
+                              ))) /**/;
                     },
                   ),
                 ),
