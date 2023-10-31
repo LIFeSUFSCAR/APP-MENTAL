@@ -62,18 +62,18 @@ class ReadingDatabase {
       List<dynamic> idReadingList) async {
     Database db = await instance.database;
     List<Reading> readingList = [];
-    idReadingList.forEach((idReading) async {
+    for (var idReading in idReadingList) {
       List<Map<String, dynamic>> readingRetrieved =
           await db.query('readings', where: 'id = "$idReading"');
       readingList.add(Reading(
           id: readingRetrieved[0]['id'],
-          group: readingRetrieved[0]['group'],
-          name: readingRetrieved[0]['name'],
-          text: readingRetrieved[0]['text'],
+          group: readingRetrieved[0]['group'].toString(),
+          name: readingRetrieved[0]['name'].toString(),
+          text: readingRetrieved[0]['text'].toString(),
           version: readingRetrieved[0]['version'],
           iconGroupImage: readingRetrieved[0]['iconGroupImage'],
           idRelatedReading: readingRetrieved[0]['idRelatedReading']));
-    });
+    };
     return readingList;
   }
 

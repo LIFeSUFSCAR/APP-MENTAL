@@ -17,7 +17,7 @@ class InterventionCard extends StatefulWidget {
   final Function callback;
 
   const InterventionCard(
-      {required this.reading,
+      {super.key, required this.reading,
       required this.notificationList,
       required this.group,
       required this.callback});
@@ -29,16 +29,16 @@ class InterventionCard extends StatefulWidget {
 class _InterventionCardState extends State<InterventionCard> {
   Widget _notification() {
     bool notificationStatus = false;
-    widget.notificationList.forEach((element) {
-      if (element.name == this.widget.reading.name) {
+    for (var element in widget.notificationList) {
+      if (element.name == widget.reading.name) {
         notificationStatus = true;
       }
-    });
+    }
     return (notificationStatus == true)
         ? Container(
             width: 20,
             height: 20,
-            decoration: new BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.red,
               shape: BoxShape.circle,
             ),
@@ -48,11 +48,11 @@ class _InterventionCardState extends State<InterventionCard> {
 
   verifyUserReadingNotification(String readingName, String readingGroup) {
     List<ReadingRelUserDTO> listToRemoveNotification = [];
-    widget.notificationList.forEach((element) {
+    for (var element in widget.notificationList) {
       if (readingName == element.name) {
         listToRemoveNotification.add(element);
       }
-    });
+    }
     HelperFunctions.getUserEmailInSharedPreference().then((email) {
       ReadingService()
           .readingIsRead(email, readingName, readingGroup)
@@ -89,29 +89,30 @@ class _InterventionCardState extends State<InterventionCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return new GestureDetector(
+    return GestureDetector(
       onTap: () => chooseIntervention(context),
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
             horizontal: kDefaultPadding, vertical: kDefaultPadding / 2),
         height: 120,
         child: Stack(
           alignment: Alignment.bottomCenter,
+          clipBehavior: Clip.none,
           children: <Widget>[
             Container(
               height: 106,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(22),
                 color: kBackgroundLightGreen,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                      offset: Offset(0, 15),
-                      blurRadius: 27,
-                      color: Colors.black12)
+                      offset: Offset(0, 7),
+                      blurRadius: 15,
+                      color: Color.fromRGBO(0, 0, 0, 0.1))
                 ],
               ),
               child: Container(
-                margin: EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
@@ -122,7 +123,7 @@ class _InterventionCardState extends State<InterventionCard> {
               top: 15,
               right: 0,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 height: 106,
                 width: 116,
                 child: ClipRRect(

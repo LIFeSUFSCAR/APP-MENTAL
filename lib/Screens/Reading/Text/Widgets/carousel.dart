@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -17,27 +16,25 @@ class Carousel extends StatelessWidget {
     await showDialog(
       context: context,
       builder: (_) => Dialog(
-        child: Container(
-          child: Stack(
-            children: [
-              InteractiveViewer(maxScale: 2, child: image),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: InkResponse(
-                  onTap: () => closeDialog(context),
-                  child: CircleAvatar(
-                    maxRadius: 15,
-                    child: Icon(
-                      Icons.close,
-                      size: 15,
-                    ),
-                    backgroundColor: Colors.red,
+        child: Stack(
+          children: [
+            InteractiveViewer(maxScale: 2, child: image),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: InkResponse(
+                onTap: () => closeDialog(context),
+                child: const CircleAvatar(
+                  maxRadius: 15,
+                  backgroundColor: Colors.red,
+                  child: Icon(
+                    Icons.close,
+                    size: 15,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -47,16 +44,20 @@ class Carousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
+          enlargeCenterPage: true,
+          enlargeFactor: 0.1,
           autoPlay: true, height: MediaQuery.of(context).size.height * 0.3),
       items: carouselImages.map((i) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
+
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(204, 204, 204, 1)),
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.1)),
               ),
-              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
               child: GestureDetector(
                 onTap: () => showImageContainer(
                     context,
