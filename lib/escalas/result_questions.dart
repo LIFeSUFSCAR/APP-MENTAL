@@ -35,7 +35,9 @@ class _ResultQuestionsState extends State<ResultQuestions> {
         widget.questionnaireCode == QuestionnaireCode.questSD2.name ||
         widget.questionnaireCode == QuestionnaireCode.assist.name ||
         widget.questionnaireCode == QuestionnaireCode.pcl5.name ||
-        widget.questionnaireCode == QuestionnaireCode.copsoq.name)) {
+        widget.questionnaireCode == QuestionnaireCode.copsoq.name ||
+        widget.questionnaireCode ==
+            QuestionnaireCode.habitosAlimentares.name)) {
       getScoreList().whenComplete(() {
         getScore();
       });

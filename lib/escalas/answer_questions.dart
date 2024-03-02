@@ -216,7 +216,10 @@ class _AnswerQuestionsState extends State<AnswerQuestions> {
   }
 
   List<Widget> getListAnswers() {
-    if (widget.scale == "copsoq_week2" && widget.questionIndex == 45) {
+    if ((widget.scale == "copsoq_week2" && widget.questionIndex == 45) ||
+        (widget.scale == "habitosAlimentares_week1" &&
+            widget.answers.length == 1 &&
+            widget.answers[0].answerText == "text")) {
       return [
         Column(children: [
           Padding(

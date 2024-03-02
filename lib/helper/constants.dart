@@ -41,5 +41,6 @@ enum QuestionnaireCode {
   assistn2,
   sleepQuestionnaire,
   copsoq,
-  quesi
+  quesi,
+  habitosAlimentares
 }
