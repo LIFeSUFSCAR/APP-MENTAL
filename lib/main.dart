@@ -7,6 +7,7 @@ import 'package:app_mental/Screens/Contacts/contacts_screen.dart';
 import 'package:app_mental/Screens/MemoryGamePage/memory_game_screen.dart';
 import 'package:app_mental/Screens/Questionarie/Charts/chart_general_screen.dart';
 import 'package:app_mental/Screens/Questionarie/quests_screen.dart';
+import 'package:app_mental/Screens/Sensors/SensorsPage.dart';
 import 'package:app_mental/Screens/SleepDiary/sleep_diary.dart';
 import 'package:app_mental/Screens/Tutorial/tutorial_screen.dart';
 import 'package:app_mental/Services/firebaseMessagingService.dart';
@@ -34,6 +35,8 @@ import 'Screens/About/AboutPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(providers: [
@@ -43,7 +46,6 @@ void main() async {
               FirebaseMessagingService(context.read<NotificationService>()))
     ], child: MyApp()),
   );
-  await dotenv.load(fileName: "lib/.env");
 }
 
 class MyApp extends StatefulWidget {
@@ -87,7 +89,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
@@ -112,7 +114,8 @@ class _MyAppState extends State<MyApp> {
         "/chart-ccsm-screen": (ctx) => ChartCcsmScreen(),
         "/chart-substance-screen": (ctx) => ChartSubstanceScreen(),
         "/chart-sleep-screen": (ctx) => ChartSleepScreen(),
-        "/about": (ctx) => AboutPage()
+        "/about": (ctx) => AboutPage(),
+        "/sensors": (ctx) => SensorsPage()
       },
       home: (userIsLoggedIn ?? false) ? HomeScreen() : SignIn(),
     );

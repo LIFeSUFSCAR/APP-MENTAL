@@ -15,8 +15,8 @@ class _DiarySleepHomeState extends State<DiarySleepHome> {
           foregroundColor: MaterialStateProperty.all(Colors.blue),
         ),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => DiarioSono()));
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => DiarioSono()));
         },
         child: Text(
             'Olá\nBem vindo ao questionário do sono\nSó clicar para começar ;)'),
