@@ -39,3 +39,7 @@ bool isCheckboxQuestion(String questionnaireCode, int questionIndex) {
       (questionnaireCode == "questSD2" &&
           (questionIndex == 9 || questionIndex == 10)));
 }
+
+int boolToInt(boolean) {
+  return boolean ? 1 : 0;
+}
