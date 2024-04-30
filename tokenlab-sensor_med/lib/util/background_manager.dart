@@ -45,8 +45,6 @@ void onStart(ServiceInstance instance) async {
         url: '',
       );
 
-  print("parametros");
-  print(parameters);
   StreamSubscription<GyroscopeEvent>? gyroscope;
   StreamSubscription<UserAccelerometerEvent>? accelerometer;
   StreamSubscription<Position>? location;

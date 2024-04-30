@@ -47,27 +47,6 @@ class _SensorsPageState extends State<SensorsPage> {
                     location = configuration.location.isOdd
                   }
               });
-
-      // WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   SensorConfigurationDatabase.instance
-      //       .getConfiguration(value)
-      //       .then((sensorConfiguration) {
-      //     if (sensorConfiguration == null) {
-      //       SensorConfigurationDatabase.instance.add(SensorConfiguration(
-      //           userEmail: value, accelerometer: 0, gyroscope: 0, location: 0));
-      //     }
-      //   });
-      //   // final url = dotenv.env['BACKEND_URL']!;
-      //   // SensorMed.instance.startSensorsService(
-      //   //     url: '${url}sendSensorData',
-      //   //     captureAccelerometer: true,
-      //   //     captureSleep: false, //bug
-      //   //     captureGyroscope: true,
-      //   //     captureLocation: true,
-      //   //     captureScreenState: false, //bug
-      //   //     sendDataInterval: const Duration(seconds: 20),
-      //   //     email: value);
-      // });
     });
   }
 
