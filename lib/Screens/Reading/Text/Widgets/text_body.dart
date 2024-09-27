@@ -10,8 +10,9 @@ import '../../../../model/reading.dart';
 import '../text_screen.dart';
 
 class TextBody extends StatefulWidget {
-  TextBody(this.text, this.relatedReadingList, this.verifyNotificationList,
-      this.carouselImages);
+  const TextBody(this.text, this.relatedReadingList,
+      this.verifyNotificationList, this.carouselImages,
+      {super.key});
 
   final String text;
   final List<Reading> relatedReadingList;
@@ -81,24 +82,20 @@ class _TextBodyState extends State<TextBody> {
         child: Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(
+                top: 18.0, bottom: 28.0, right: 16, left: 16),
             child: Column(
               children: [
                 widget.carouselImages.isNotEmpty
                     ? Column(
                         children: [
-                          Container(
-                              child: Carousel(
-                                  carouselImages: widget.carouselImages)),
-                          SizedBox(
-                            height: 5,
-                          ),
+                          Carousel(carouselImages: widget.carouselImages),
                         ],
                       )
                     : Container(),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(top: 16),
+                  decoration: const BoxDecoration(
                     color: Color(0xFFEEEEEE),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
@@ -109,65 +106,70 @@ class _TextBodyState extends State<TextBody> {
                     shape: BoxShape.rectangle,
                   ),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(14, 4, 10, 4),
                     child: Column(
                       children: getText(),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
+                const Divider(
+                  height: 50,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
                   child: Text(
                     "Materiais Educativos Relacionados",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
-                Container(
-                  height: 200,
+                SizedBox(
+                  height: 192,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: widget.relatedReadingList.length,
                     itemBuilder: (context, index) {
                       Reading reading = widget.relatedReadingList[index];
-                      return Padding(
-                        padding: EdgeInsets.only(left: 10, right: 30),
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 100,
-                                height: 100,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: (reading.iconGroupImage != null
-                                      ? Image.memory(
-                                          base64Decode(reading.iconGroupImage!))
-                                      : null),
-                                ),
+                      return GestureDetector(
+                          onTap: () => goToRelatedReading(reading),
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
-                              Container(
-                                width: 100,
-                                height: 30,
-                                child: Text(
-                                  reading.name,
-                                  style: TextStyle(fontSize: 14),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: 110,
+                                      height: 100,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: (reading.iconGroupImage != null
+                                            ? Image.memory(base64Decode(
+                                                reading.iconGroupImage!))
+                                            : null),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    SizedBox(
+                                      width: 110,
+                                      height: 40,
+                                      child: Text(
+                                        reading.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: const TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              TextButton(
-                                onPressed: () => goToRelatedReading(reading),
-                                child: Text(
-                                  "Acessar ->",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                              ))) /**/;
                     },
                   ),
                 ),
+                const Padding(padding: EdgeInsets.only(bottom: 50))
               ],
             ),
           ),

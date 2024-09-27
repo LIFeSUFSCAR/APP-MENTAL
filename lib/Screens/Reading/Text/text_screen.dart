@@ -56,10 +56,20 @@ class _TextScreenState extends State<TextScreen> {
         });
 
         getRelatedReadings(reading.idRelatedReading);
-      }
-    });
+      }});
   }
+  getRelatedReadings(List<dynamic> relatedReadings) async {
 
+      await ReadingDatabase.instance
+          .getListRelatedReading(relatedReadings)
+          .then((readingList) {
+        setState(() {
+          relatedReadingList = readingList;
+          isLoading = false;
+        });
+      });
+
+  }
   getUserEmail() async {
     await HelperFunctions.getUserEmailInSharedPreference().then((email) {
       setState(() {
@@ -83,6 +93,7 @@ class _TextScreenState extends State<TextScreen> {
     final _dialog = RatingDialog(
       initialRating: initialRating,
       title: Text(ratingTitle),
+      starSize: (MediaQuery. of(context). size. width-170)/5,
       message: Text(
           'Clique em uma estrela para avaliar, e adicione um comentário se quiser!'),
       submitButtonText: 'Enviar',
@@ -105,18 +116,7 @@ class _TextScreenState extends State<TextScreen> {
     Navigator.pop(context);
   }
 
-  getRelatedReadings(List<dynamic> relatedReadings) async {
-    if (widget.relatedReadings != null) {
-      await ReadingDatabase.instance
-          .getListRelatedReading(relatedReadings)
-          .then((readingList) {
-        setState(() {
-          relatedReadingList = readingList;
-          isLoading = false;
-        });
-      });
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -127,25 +127,23 @@ class _TextScreenState extends State<TextScreen> {
           color: Colors.white,
           onPressed: () => goBackPage(context),
         ),
-        title: FittedBox(
-          fit: BoxFit.contain,
-          child: Text(widget.title),
-        ),
-        actions: [
-          IconButton(
-            iconSize: 40,
-            icon: Image.asset(
-              "assets/icons/avaliacao.png",
-            ),
-            onPressed: () {
-              _showRatingDialog(context, widget.title, widget.id!);
-            },
-          )
-        ],
+        title: Text(widget.title, overflow: TextOverflow.ellipsis,),
+
+
       ),
       resizeToAvoidBottomInset: false,
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text("Avaliar"),
+          backgroundColor: kTextColorGreen,
+          foregroundColor: Colors.white,
+          icon: Icon(Icons.star),
+        onPressed: () {
+          _showRatingDialog(context, widget.title, widget.id!);
+
+
+        }),
       body: isLoading
-          ? Container(
+          ? const SizedBox(
               width: double.infinity,
               height: double.infinity,
               child: Column(
@@ -157,7 +155,7 @@ class _TextScreenState extends State<TextScreen> {
               ),
             )
           : TextBody(text, relatedReadingList, widget.verifyNotificationList,
-              this.widget.carouselImages),
+              widget.carouselImages),
     );
   }
 }

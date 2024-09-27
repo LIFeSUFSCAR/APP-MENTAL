@@ -16,10 +16,10 @@ class Reading {
       required this.iconGroupImage,
       required this.idRelatedReading});
 
-  factory Reading.fromMap(Map<String, dynamic> json) => new Reading(
+  factory Reading.fromMap(Map<String, dynamic> json) => Reading(
         id: json['id'],
         group: json['group'],
-        name: json['name'],
+        name: json['name']==null? "":json['name'].toString(),
         text: (json.containsKey('text')) ? (json['text']) : "",
         version: json['version'],
         iconGroupImage: json['iconGroupImage'],
