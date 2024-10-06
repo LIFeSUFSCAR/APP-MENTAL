@@ -6,7 +6,13 @@ class MainCardButton extends StatelessWidget {
   final String page;
   final int notification;
 
-  MainCardButton(this.label, this.icon, this.page, this.notification);
+  final String valueName;
+
+  final String valueNamePlural;
+
+  const MainCardButton(this.label, this.icon, this.page, this.valueName,
+      this.valueNamePlural, this.notification,
+      {super.key});
 
   redirectToPage(BuildContext context) {
     Navigator.of(context).popUntil(ModalRoute.withName('/logged-home'));
@@ -18,7 +24,7 @@ class MainCardButton extends StatelessWidget {
         ? Container(
             width: 20,
             height: 20,
-            decoration: new BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.red,
               shape: BoxShape.circle,
             ),
@@ -34,41 +40,52 @@ class MainCardButton extends StatelessWidget {
         redirectToPage(context);
       },
       child: Card(
-        child: Container(
-          width: 150,
-          height: 150,
-          child: Stack(
-            children: [
-              Container(
-                width: 150,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Color(0x99D9E6E8), width: 2),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 0,
+        child: Stack(
+          children: [
+            Padding(
+                padding: const EdgeInsets.all(13),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      "assets/icons/" + this.icon,
-                      width: 80,
-                      height: 80,
+                    Text(
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      maxLines: 2,
+                      label,
+                      textAlign: TextAlign.left,
                     ),
                     Text(
-                      this.label,
-                      textAlign: TextAlign.center,
-                    )
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      valueName == ""
+                          ? ""
+                          : notification.toString() == "1"
+                              ? "$notification $valueName"
+                              : "$notification $valueNamePlural",
+                      textAlign: TextAlign.left,
+                    ),
+                    Expanded(
+                      child: Image.asset(
+                        alignment: Alignment.bottomCenter,
+                        "assets/icons/" + this.icon,
+                        width: 90,
+                        height: 90,
+                      ),
+                    ),
                   ],
-                ),
-              ),
-              Container(
-                width: 150,
-                height: 20,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    _notification(),
-                  ],
-                ),
-              ),
-            ],
-          ),
+                )),
+          ],
         ),
       ),
     );

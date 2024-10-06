@@ -44,28 +44,28 @@ class _ContactChatScreenState extends State<ContactChatScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.green,
         shadowColor: Colors.transparent,
-        title: Text("Contatos"),
+        title: const Text("Contatos"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => _goBackPage(context),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Column(
+
+        children: [GridView.count(
+          padding: const EdgeInsets.all(20),
+          shrinkWrap: true,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 5,
+          crossAxisCount: 2,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MainCardButton("Contatos de Emergência", "contatos_COR.png",
-                    "/contacts-screen", 0),
-                MainCardButton("Chat", "contatos_COR.png", "/chat",
-                    chatNotificationQuantity)
-              ],
-            ),
+            const MainCardButton("Contatos de Emergência", "contatos_COR.png",
+                "/contacts-screen","", "", 0),
+            MainCardButton("Chat", "contatos_COR.png", "/chat","conversa", "conversas",
+                chatNotificationQuantity),
           ],
         ),
-      ),
+      ]),
     );
   }
 }

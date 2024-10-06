@@ -15,10 +15,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String? userEmail;
+  String? userName;
 
   @override
   void initState() {
-    getUserEmail();
+    getUserNameAndEmail();
     super.initState();
   }
 
@@ -26,11 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.pushNamed(context, "/${message.data['payload']}");
   }
 
-  getUserEmail() async {
-    await HelperFunctions.getUserEmailInSharedPreference().then((value) {
+  getUserNameAndEmail() async {
+    await HelperFunctions.getUserNameAndEmailInSharedPreference().then((user) {
       setState(() {
-        userEmail = value;
+        userName = user["name"];
+        userEmail = user["email"];
       });
+      //getAvatarImageFromDatabase(user["email"]);
     });
   }
 
@@ -42,8 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: kTextColorGreen,
         shadowColor: Color.fromRGBO(1, 1, 1, 0),
       ),
+      
       drawer: AppDrawer(key: Key("drawer")),
-      body: Body(),
+      body: Body(userName: userName),
     );
   }
 }
