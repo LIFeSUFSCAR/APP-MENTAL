@@ -1,4 +1,6 @@
 class Constants {
+  static Duration sensorsCaptureInterval = const Duration(minutes: 1);
+  static Duration sensorsCaptureSendData = const Duration(hours: 1);
   static String myName = "";
   static String myEmail = "";
   static String uid = "";

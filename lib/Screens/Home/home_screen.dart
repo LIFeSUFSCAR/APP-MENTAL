@@ -2,6 +2,7 @@ import 'package:app_mental/Screens/Home/Widgets/body.dart';
 import 'package:app_mental/Shared/Widgets/AppDrawer.dart';
 import 'package:app_mental/classes/SensorConfiguration.dart';
 import 'package:app_mental/classes/sensorConfigurationDatabase.dart';
+import 'package:app_mental/helper/constants.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:sensor_med/sensor_med.dart';
@@ -54,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 captureGyroscope: sensorConfiguration.gyroscope == 1,
                 captureLocation: sensorConfiguration.location == 1,
                 captureScreenState: false, //bug
-                captureDataThrottle: const Duration(seconds: 1),
-                sendDataInterval: const Duration(seconds: 20),
+                captureDataThrottle: Constants.sensorsCaptureInterval,
+                sendDataInterval: Constants.sensorsCaptureSendData,
                 email: value);
           } else {
             SensorMed.instance.stopSensorsService();

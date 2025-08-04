@@ -1,4 +1,5 @@
 import 'package:app_mental/classes/sensorConfigurationDatabase.dart';
+import 'package:app_mental/helper/constants.dart';
 import 'package:app_mental/helper/helperfuncions.dart';
 import 'package:app_mental/helper/util.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +68,8 @@ class _SensorsPageState extends State<SensorsPage> {
           captureGyroscope: gyroscope,
           captureLocation: location,
           captureScreenState: false, //bug
-          captureDataThrottle: const Duration(seconds: 1),
-          sendDataInterval: const Duration(seconds: 20),
+          captureDataThrottle: Constants.sensorsCaptureInterval,
+          sendDataInterval: Constants.sensorsCaptureSendData,
           email: userEmail!);
     }
     setState(() {

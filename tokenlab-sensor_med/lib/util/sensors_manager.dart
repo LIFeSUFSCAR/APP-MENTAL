@@ -450,6 +450,7 @@ class SensorsManager {
               .toList();
 
           if (data.isNotEmpty) {
+            print("Enviou");
             final gyroscopeData = data
                 .where(
                   (element) => element.type == SensorType.gyroscope,
@@ -482,8 +483,6 @@ class SensorsManager {
               final actualDate = _dateFormatter.format(DateTime.now());
               url = url.replaceAll('__at_date__', actualDate);
             }
-            print("teste");
-            print(url);
             Object obj = {
               'email': parameters.email,
               '${parameters.fieldsParameters.sentAtField}':
@@ -550,7 +549,6 @@ class SensorsManager {
                       .toList(),
               },
             };
-            print(obj);
             final response = await dio.post(
               url,
               options: Options(
