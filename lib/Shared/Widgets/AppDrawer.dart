@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sensor_med/sensor_med.dart';
 
 import '../../Services/userService.dart';
 
@@ -188,15 +189,22 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           const SizedBox(height: 8),
           buildMenuItem(
+            text: 'Configuração dos sensores',
+            icon: Icons.settings,
+            onClicked: () => selectedItem(context, 8),
+          ),
+          const SizedBox(height: 8),
+          buildMenuItem(
             text: 'Sobre aplicativo',
             icon: Icons.info,
-            onClicked: () => selectedItem(context, 8),
+            onClicked: () => selectedItem(context, 9),
           ),
           const SizedBox(height: 8),
           buildMenuItem(
             text: 'Sair',
             icon: Icons.exit_to_app,
             onClicked: () {
+              SensorMed.instance.stopSensorsService();
               UserService().signOut();
               Navigator.pushNamedAndRemoveUntil(
                   context, "/sign-in", (Route<dynamic> route) => false);
@@ -364,6 +372,10 @@ class _AppDrawerState extends State<AppDrawer> {
         Navigator.of(context).pushNamed("/memory_game_screen");
         break;
       case 8:
+        Navigator.of(context).popUntil(ModalRoute.withName('/logged-home'));
+        Navigator.of(context).pushNamed("/sensors");
+        break;
+      case 9:
         Navigator.of(context).popUntil(ModalRoute.withName('/logged-home'));
         Navigator.of(context).pushNamed("/about");
         break;

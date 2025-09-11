@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "349565085218",
+    "project_id": "sensor-med-example-d060e",
+    "storage_bucket": "sensor-med-example-d060e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349565085218:android:733a3aa04c74506874cc7b",
+        "android_client_info": {
+          "package_name": "br.com.tokenlab.sensorMedExample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349565085218-vt0gvaqb7sfc1pn9118biha428qv247g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.tokenlab.sensorMedExample",
+            "certificate_hash": "70d48707d3c89ddbe9ad74db33a7b9e0e2244b48"
+          }
+        },
+        {
+          "client_id": "349565085218-onf1hveoh354u16cni94bc4tqk4v1pog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDek4_zaxghgcdJUzo8Edf01HyUNltNffE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349565085218-onf1hveoh354u16cni94bc4tqk4v1pog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349565085218:android:8f9ce3c65c521d3a74cc7b",
+        "android_client_info": {
+          "package_name": "br.com.tokenlab.sensorsMedExample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349565085218-onf1hveoh354u16cni94bc4tqk4v1pog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDek4_zaxghgcdJUzo8Edf01HyUNltNffE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349565085218-onf1hveoh354u16cni94bc4tqk4v1pog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

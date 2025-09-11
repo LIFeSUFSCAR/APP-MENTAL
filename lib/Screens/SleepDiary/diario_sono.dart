@@ -82,12 +82,9 @@ class _DiarioSonoState extends State<DiarioSono> {
                   color: Colors.white,
                   iconTheme: IconThemeData(
                     color: Colors.cyan,
-
                   ),
-                  titleTextStyle: TextStyle( 
-                    
-                      color: Colors.cyan,
-                    
+                  titleTextStyle: TextStyle(
+                    color: Colors.cyan,
                   ),
                 ),
                 iconTheme: const IconThemeData(
@@ -137,11 +134,14 @@ class _DiarioSonoState extends State<DiarioSono> {
                           ),
                     ),
                   ),
-                ), colorScheme: ColorScheme.fromSwatch(
+                ),
+                colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.cyan,
-                ).copyWith(
-                  onPrimary: Colors.white,
-                ).copyWith(background: Colors.white),
+                )
+                    .copyWith(
+                      onPrimary: Colors.white,
+                    )
+                    .copyWith(background: Colors.white),
               ),
             ),
           ),

@@ -19,7 +19,6 @@ class FirebaseMessagingService {
   }
 
   Future<void> initialize() async {
-    print("aqui");
     await Permission.notification.isDenied.then((value) {
       if (value) {
         Permission.notification.request();

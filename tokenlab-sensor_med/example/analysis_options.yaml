@@ -1,0 +1,23 @@
+include: package:very_good_analysis/analysis_options.5.1.0.yaml
+
+analyzer:
+  errors:
+    lines_longer_than_80_chars: ignore
+  exclude:
+    - "**/*.g.dart"
+    - "lib/generated/**"
+    - "lib/i18n/stock_messages_*.dart"
+    - '**/*.graphql.dart'
+  language:
+    strict-casts: true
+    strict-raw-types: true
+linter:
+  rules:
+    public_member_api_docs: false
+    no_default_cases: false
+    library_private_types_in_public_api: false
+    prefer_asserts_with_message: false
+    sort_pub_dependencies: false
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options

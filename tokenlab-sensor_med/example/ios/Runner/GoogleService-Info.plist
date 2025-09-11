@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>349565085218-3qtiv1vj83a0j4uqh3qtka51ooj53o10.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.349565085218-3qtiv1vj83a0j4uqh3qtka51ooj53o10</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>349565085218-3jtjqjdfbi61evjol60hm1dugi0m08s6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD5Q83sLynDnWsmpzrVw2a1fePMOxYPFL0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>349565085218</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>br.com.tokenlab.sensorsMedExample</string>
+	<key>PROJECT_ID</key>
+	<string>sensor-med-example-d060e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sensor-med-example-d060e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:349565085218:ios:b6081a969a00c67674cc7b</string>
+	<key>DATABASE_URL</key>
+	<string>https://sensor-med-example-d060e-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
